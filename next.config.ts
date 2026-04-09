@@ -1,13 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   output: "export",
-  distDir: 'dist',
-  basePath: "/my-app", // Replace with your repo name if needed
+  basePath: "/my-app",
   images: {
-    unoptimized: true, // GitHub Pages doesn't support Next.js Image Optimization
+    unoptimized: true,
   },
+  trailingSlash: true,
 };
 
 export default nextConfig;

@@ -1,0 +1,4 @@
+{
+  "workbench.tree.indent": 20, // Change to your preferred pixel value
+  "workbench.tree.renderIndentGuides": "always" // Optional: always show the vertical guide lines
+}

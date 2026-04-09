@@ -1,6 +1,8 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export default function HeroSection() {
     const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -21,7 +23,7 @@ export default function HeroSection() {
                 muted
                 loop
                 playsInline
-                poster="/assets/images/Superman-9.png"
+                poster={`${BASE_PATH}/assets/images/Superman-9.png`}
             >
                 {/* Pexels / Unsplash fallback — replace with actual executive footage */}
                 {/* <source

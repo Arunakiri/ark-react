@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 interface AppImageProps {
     src: string;
     alt: string;
@@ -18,6 +20,13 @@ interface AppImageProps {
     onClick?: () => void;
     fallbackSrc?: string;
     [key: string]: any;
+}
+
+// Helper to add basePath to local image paths
+function getImagePath(path: string): string {
+    if (path.startsWith('http')) return path;
+    if (path.startsWith('/')) return `${BASE_PATH}${path}`;
+    return path;
 }
 
 function AppImage({
@@ -36,7 +45,7 @@ function AppImage({
     fallbackSrc = '/assets/images/no_image.png',
     ...props
 }: AppImageProps) {
-    const [imageSrc, setImageSrc] = useState(src);
+    const [imageSrc, setImageSrc] = useState(getImagePath(src));
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
@@ -45,8 +54,9 @@ function AppImage({
     const isLocal = imageSrc.startsWith('/') || imageSrc.startsWith('./') || imageSrc.startsWith('data:');
 
     const handleError = () => {
-        if (!hasError && imageSrc !== fallbackSrc) {
-            setImageSrc(fallbackSrc);
+        const fallbackPath = getImagePath(fallbackSrc);
+        if (!hasError && imageSrc !== fallbackPath) {
+            setImageSrc(fallbackPath);
             setHasError(true);
         }
         setIsLoading(false);

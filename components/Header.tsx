@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import AppLogo from '@/components/ui/AppLogo';
 
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 const navLinks = [
     { label: 'About', href: '#about' },
     { label: 'Work', href: '#work' },
@@ -47,8 +49,11 @@ export default function Header() {
                 </nav>
 
                 {/* CTA */}
+                {/* Open CV PDF in a new tab for better user experience */}
                 <a
-                    href="#contact"
+                    href={`${BASE_PATH}/assets/resume/Arunakiri_Resume.pdf`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-[0.625rem] font-semibold uppercase tracking-widest-2 border border-white/25 text-white px-6 py-2.5 hover:border-blue hover:text-parchment hover:bg-blue transition-all duration-400"
                 >
                     Download CV

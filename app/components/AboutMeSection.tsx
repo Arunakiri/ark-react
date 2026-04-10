@@ -3,10 +3,10 @@ import React, { useEffect, useRef } from 'react';
 import AppImage from '@/components/ui/AppImage';
 
 const stats = [
-    { value: '8+', label: 'Years of Experience' },
-    { value: '6+', label: 'Projects' },
-    { value: '400+', label: 'User Base' },
-    // { value: '7418908007', label: 'Phone'}
+    { value: '8 yrs.', label: 'Experience' },
+    { value: '6', label: 'Projects' },
+    { value: '4', label: 'Apps Built' },
+    { value: '- DSL Connect, - Drive Matrix, - H2 Dash, - DSL Assistant', label: 'Apps'}
 ];
 
 export default function AboutMeSection() {
@@ -98,22 +98,47 @@ export default function AboutMeSection() {
                         className="reveal reveal-delay-1 bento-card col-span-1 md:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-0"
                         style={{ border: '1px solid rgba(245,240,232,0.07)' }}>
 
+                        {/* Render Apps stat as a vertical list with smaller text, other stats as normal */}
                         {stats?.map((stat, i) =>
-                            <div
-                                key={i}
-                                className="p-8 flex flex-col justify-end"
-                                style={{
-                                    borderRight: i < stats?.length - 1 ? '1px solid rgba(245,240,232,0.06)' : 'none'
-                                }}>
-
-                                <div className="stat-number">{stat?.value}</div>
-                                <p
-                                    className="font-sans text-parchment/35 mt-2"
-                                    style={{ fontSize: '0.65rem', letterSpacing: '0.08em', lineHeight: 1.5 }}>
-
-                                    {stat?.label}
-                                </p>
-                            </div>
+                            stat.label === 'Apps' ? (
+                                <div
+                                    key={i}
+                                    className="p-8 flex flex-col justify-end"
+                                    style={{
+                                        borderRight: i < stats?.length - 1 ? '1px solid rgba(245,240,232,0.06)' : 'none'
+                                    }}>
+                                    <div className="flex flex-col gap-1">
+                                        {stat.value.split(',').map((app, idx) => (
+                                            <div
+                                                key={idx}
+                                                className="font-sans text-parchment/70"
+                                                style={{ fontSize: '0.75rem', fontWeight: '300', lineHeight: 1.4 }}
+                                            >
+                                                {app.trim()}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <p
+                                        className="font-sans text-parchment/35 mt-2"
+                                        style={{ fontSize: '0.65rem', letterSpacing: '0.08em', lineHeight: 1.5 }}>
+                                        {stat?.label}
+                                    </p>
+                                </div>
+                            ) : (
+                                <div
+                                    key={i}
+                                    className="p-8 flex flex-col justify-end"
+                                    style={{
+                                        borderRight: i < stats?.length - 1 ? '1px solid rgba(245,240,232,0.06)' : 'none'
+                                    }}>
+                                    <div className="stat-number">{stat?.value}</div>
+                                    <p
+                                        className="font-sans text-parchment/35 mt-2"
+                                        style={{ fontSize: '0.65rem', letterSpacing: '0.08em', lineHeight: 1.5 }}>
+                                        {stat?.label}
+                                    </p>
+                                </div>
+                            )
                         )}
                     </div>
 

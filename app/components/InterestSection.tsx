@@ -5,59 +5,58 @@ import AppImage from '@/components/ui/AppImage';
 const speakingCards = [
     {
         event: 'En-route Pune',
-        topic: 'The Architecture of Long-Term Capital',
-        location: 'Davos, Switzerland',
-        year: '2024',
         img: "/assets/interests/bikes.jpg",
-        alt: 'Large conference auditorium with stage lighting and packed audience at World Economic Forum'
+        alt: 'En-route Pune'
     },
     {
         event: 'Thanjai Periya Kovil',
-        topic: 'Governance in the Age of Disruption',
-        location: 'Boston, MA',
-        year: '2023',
         img: "/assets/interests/temple-1.jpg",
-        alt: 'Speaker presenting on stage at Harvard Business School lecture hall, formal setting'
+        alt: 'Thanjai Periya Kovil'
     },
     {
         event: 'Satodi Falls, Yellapur',
-        topic: 'Why the Best Boards Stay Silent',
-        location: 'Edinburgh, Scotland',
-        year: '2023',
         img: "/assets/interests/falls.jpg",
-        alt: 'TED-style stage with single spotlight on speaker, dark auditorium background'
+        alt: 'Satodi Falls, Yellapur'
     },
     {
         event: 'Devgad Beach',
-        topic: 'Capital Allocation Under Uncertainty',
-        location: 'New York, NY',
-        year: '2022',
         img: "/assets/interests/beach.jpg",
-        alt: 'Executive boardroom panel discussion with city skyline visible through floor-to-ceiling windows'
+        alt: 'Devgad Beach'
     },
     {
         event: 'Taj Mahal, Agra',
-        topic: 'Sovereign Wealth in the Next Decade',
-        location: 'Los Angeles, CA',
-        year: '2022',
         img: "/assets/interests/taj-1.jpg",
-        alt: 'Conference stage with panelists seated at curved table, professional event lighting'
+        alt: 'Taj Mahal, Agra'
     },
     {
         event: 'Music',
-        topic: 'Sovereign Wealth in the Next Decade',
-        location: 'Los Angeles, CA',
-        year: '2022',
         img: "/assets/interests/music-album.png",
-        alt: 'Conference stage with panelists seated at curved table, professional event lighting'
+        alt: 'Music'
     }, 
     {
-        event: 'Games',
-        topic: 'Sovereign Wealth in the Next Decade',
-        location: 'Los Angeles, CA',
-        year: '2022',
+        event: 'Video Games',
         img: "/assets/interests/ps5-games.jpg",
-        alt: 'Conference stage with panelists seated at curved table, professional event lighting'
+        alt: 'Games'
+    }, 
+    {
+        event: 'Sail to Ko-Pha-Ngan',
+        img: "/assets/interests/ship.jpeg",
+        alt: 'Sail to Ko-Pha-Ngan'
+    }, 
+    {
+        event: 'Flight to Singapore',
+        img: "/assets/interests/flight.jpeg",
+        alt: 'Flight to Singapore'
+    }, 
+    {
+        event: 'Skattegarden, Sweden',
+        img: "/assets/interests/sweden.jpeg",
+        alt: 'Skattegarden, Sweden'
+    }, 
+    {
+        event: 'Thirparappu Falls',
+        img: "/assets/interests/thiruparappu.jpeg",
+        alt: 'Thirparappu Falls'
     }, 
 ];
 

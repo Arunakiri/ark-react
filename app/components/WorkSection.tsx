@@ -15,12 +15,10 @@ interface CaseStudy {
     label: string;
     value: string;
   }[];
-  narrative: string;
   outcome: {
     label: string;
-    value: string;
+    value: string[];
   }[];
-  metrics: {label: string;value: string;}[];
 }
 
 const cases: CaseStudy[] = [
@@ -39,18 +37,16 @@ const cases: CaseStudy[] = [
     { label: 'Position', value: 'Data Scientist' },
     { label: 'Interval', value: 'Oct 2023 - Present' },
   ],
-  narrative:
-  'Geotechnical report flagged high plasticity index clay with seasonal shrink-swell. Selected soldier pile and lagging over conventional CIP gravity wall — reduced excavation footprint by 40% and eliminated surcharge concerns from the uphill structure. Coordinated with geotech on drainage envelope design to prevent hydrostatic pressure buildup.',
   outcome: [
-    {label: 'DSL Operations', value: 'Handle Pods in our On-Premise Servers'},
-    {label: 'Data Pipeline', value: ''},
-    {label: 'Application Development', value: ''},
+    {label: 'Data Science Lab (DSL)', value: [
+        'Built strong stakeholders relationships by bringing in new ideas and delivering on time.',
+        'Product Owner for the Hydrogen Rigs solution in the DSL, handling both direction and execution.',
+        'Set up Airflow pipelines to make data flow into DSL systems smoother and more reliable.',
+        'Designed and improved Apps with a focus on making them faster, simpler, and more efficient.',
+        'Created a Streamlit-based LLM chatbot to quickly analyze and explore Hydrogen Rigs.',
+        'Led the site-wide Volvo Data Science Conference 2026, coordinating sessions and bringing together teams to share ideas and work.'
+    ]},
   ],
-  metrics: [
-  { label: 'Construction Value', value: '$2.4M' },
-  { label: 'Wall Length', value: '340 LF' },
-  { label: 'Schedule', value: 'On Time' }]
-
 },
 {
   id: 'cs2',
@@ -65,18 +61,14 @@ const cases: CaseStudy[] = [
     { label: 'Position', value: 'Lead Analyst' },
     { label: 'Interval', value: 'Oct 2021 - Oct 2023' },
   ],
-  narrative:
-  'Geotechnical report flagged high plasticity index clay with seasonal shrink-swell. Selected soldier pile and lagging over conventional CIP gravity wall — reduced excavation footprint by 40% and eliminated surcharge concerns from the uphill structure. Coordinated with geotech on drainage envelope design to prevent hydrostatic pressure buildup.',
   outcome: [
-    {label: 'DSL Operations', value: ''},
-    {label: 'Data Pipeline', value: ''},
-    {label: 'Application Development', value: ''},
-  ],
-  metrics: [
-  { label: 'Construction Value', value: '$2.4M' },
-  { label: 'Wall Length', value: '340 LF' },
-  { label: 'Schedule', value: 'On Time' }]
+    {label: 'Digital Operations', value: [
+        'Member of a global initiative to transition from MATLAB to Python to help reduce licensing costs.',
+        'As part of this, I conducted Python trainings and helped teams adopt the new stack.', 
+        'Led the migration of three projects to fully Python-based solutions (Dolly Tire Testing, Geo Location Tracking, and Battery SoC Analysis).',
 
+    ]},
+  ],
 },
 {
   id: 'cs3',
@@ -91,32 +83,14 @@ const cases: CaseStudy[] = [
     { label: 'Position', value: 'Senior System Engineer' },
     { label: 'Interval', value: 'Apr 2018 - Oct 2021' },
   ],
-  narrative:
-  'Geotechnical report flagged high plasticity index clay with seasonal shrink-swell. Selected soldier pile and lagging over conventional CIP gravity wall — reduced excavation footprint by 40% and eliminated surcharge concerns from the uphill structure. Coordinated with geotech on drainage envelope design to prevent hydrostatic pressure buildup.',
   outcome: [
-    {label: 'DSL Operations', value: ''},
-    {label: 'Data Pipeline', value: ''},
-    {label: 'Application Development', value: ''},
+    {label: 'OCR Data Extraction', value: [
+        'Completed Infosys-certified training in Data Security (focused on handling sensitive data) and Python development.',
+        'Built a Python-based solution to extract data from product information leaflets (both images and text) for Novartis.',
+        'Designed PostgreSQL tables to store the extracted data and created a Power BI dashboard (PIL Board) to make it easy to explore and use.'
+    ]},
   ],
-  metrics: [
-  { label: 'Construction Value', value: '$2.4M' },
-  { label: 'Wall Length', value: '340 LF' },
-  { label: 'Schedule', value: 'On Time' }]
-
 },
-];
-
-const volvo = [
-    {
-        text: 'Merritt operates in a register most executives never reach — where the room adjusts to him, not the other way around.',
-        source: 'The Financial Times',
-        issue: 'Global Business Leaders, 2023',
-    },
-    {
-        text: 'If you want to understand how power actually flows through capital markets, you study how Alexander Merritt moves through a negotiation.',
-        source: 'Harvard Business Review',
-        issue: 'Executive Profile Series',
-    },
 ];
 
 export default function WorkSection() {
@@ -257,14 +231,27 @@ export default function WorkSection() {
                                     {/* Outcome */}
                                     {cs.outcome.map((o) =>
                                         <div
+                                            key={idx} 
                                             className="p-4 border-l-2 mb-8"
                                             style={{ borderColor: 'var(--violet)', background: 'rgba(123,47,190,0.06)' }}>
+                                                
                                             <span className="font-dm text-eng-white/35 text-[9px] tracking-[0.22em] uppercase">
                                             {o.label}
                                             </span>
-                                            <p className="font-dm text-eng-white/80 text-sm leading-relaxed italic">
-                                            {o.value}
-                                            </p>
+                                            {/* Render outcome values as bullet list with proper alignment, fallback to paragraph for empty arrays */}
+                                            {Array.isArray(o.value) && o.value.length > 0 ? (
+                                                <ul className="list-disc space-y-1 mt-2 pl-4">
+                                                    {o.value.map((item, idx) => (
+                                                        <li className="font-dm text-eng-white/80 text-sm leading-relaxed">
+                                                            {item}
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            ) : (
+                                                <p className="font-dm text-eng-white/80 text-sm leading-relaxed italic">
+                                                    {o.value}
+                                                </p>
+                                            )}
                                         </div>
                                     )}
 

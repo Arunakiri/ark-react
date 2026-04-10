@@ -193,7 +193,7 @@ export default function AboutMeSection() {
                         <p className="section-label mb-5">Education</p>
                         <div className="space-y-4">
                             {[
-                                { deg: 'M.Sc in Data Science', school: 'BITS Pilani, Hyderabad', year: '2020 - 2022', logo: '/assets/logos/bits_pilani-cropped.svg', hw: 48, weight: 48 },
+                                { deg: 'M.Tech in Data Science', school: 'BITS Pilani, Hyderabad', year: '2020 - 2022', logo: '/assets/logos/bits_pilani-cropped.svg', hw: 48, weight: 48 },
                                 { deg: 'BE in Electronics & Communication', school: 'Anna University, Chennai', year: '2012 - 2016', logo: '/assets/logos/anna_university-cropped.svg', hw: 48, weight: 48}]?.
                                 map((edu) =>
                                     <div key={edu?.school} className="flex items-center gap-4">

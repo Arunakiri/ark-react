@@ -12,6 +12,12 @@ export default function Footer() {
                         © 2026 Arunakiri
                     </span>
                 </div>
+                {/* Right: Privacy + Terms */}
+                <div className="flex items-center gap-6">
+                    <a href="https://arunakiri.github.io/" className="text-[0.625rem] uppercase tracking-widest text-parchment/20 hover:text-parchment/50 transition-colors duration-300">
+                        Legacy Site
+                    </a>
+                </div>
             </div>
         </footer>
     );

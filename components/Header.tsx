@@ -51,7 +51,7 @@ export default function Header() {
                 {/* CTA */}
                 {/* Open CV PDF in a new tab for better user experience */}
                 <a
-                    href={`${BASE_PATH}/assets/resume/Arunakiri_Resume.pdf`}
+                    href={`${BASE_PATH}/assets/resume/Arunakiri_Resume_11042026.pdf`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[0.625rem] font-semibold uppercase tracking-widest-2 border border-white/25 text-white px-6 py-2.5 hover:border-blue hover:text-parchment hover:bg-blue transition-all duration-400"

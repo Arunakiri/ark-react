@@ -242,7 +242,7 @@ export default function WorkSection() {
                                             {Array.isArray(o.value) && o.value.length > 0 ? (
                                                 <ul className="list-disc space-y-1 mt-2 pl-4">
                                                     {o.value.map((item, idx) => (
-                                                        <li className="font-dm text-eng-white/80 text-sm leading-relaxed">
+                                                        <li key={idx} className="font-dm text-eng-white/80 text-sm leading-relaxed">
                                                             {item}
                                                         </li>
                                                     ))}

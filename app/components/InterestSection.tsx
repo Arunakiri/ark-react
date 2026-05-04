@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
 
 const speakingCards = [
@@ -64,6 +64,8 @@ const speakingCards = [
 export default function InterestSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const galleryRef = useRef<HTMLDivElement>(null);
+    const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -81,6 +83,16 @@ export default function InterestSection() {
         if (sectionRef?.current) observer?.observe(sectionRef?.current);
         return () => observer?.disconnect();
     }, []);
+
+    const handleImageClick = (src: string, alt: string) => {
+        setSelectedImage({ src, alt });
+    };
+
+    const handleModalClose = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === modalRef.current) {
+            setSelectedImage(null);
+        }
+    };
 
     return (
         <section
@@ -119,20 +131,21 @@ export default function InterestSection() {
                 {speakingCards?.map((card, i) =>
                     <div
                         key={i}
-                        className="snap-card group relative overflow-hidden"
+                        className="snap-card group relative overflow-hidden cursor-pointer"
                         style={{
                             width: 'clamp(260px, 30vw, 380px)',
                             height: 480,
                             border: '1px solid rgba(245,240,232,0.07)',
                             flexShrink: 0
-                        }}>
+                        }}
+                        onClick={() => handleImageClick(card.img, card.alt)}>
 
                         <AppImage
                             src={card?.img}
                             alt={card?.alt}
                             className="absolute inset-0 w-full h-full object-cover transition-all duration-1000"
                             style={{
-                                filter: 'grayscale(60%) brightness(0.5)',
+                                filter: 'grayscale(60%) brightness(0.75)',
                                 transform: 'scale(1.02)',
                                 transition: 'filter 0.8s ease, transform 0.8s ease'
                             }} />
@@ -146,7 +159,7 @@ export default function InterestSection() {
 
                         <style>{`
                             .snap-card:hover img {
-                                filter: grayscale(0%) brightness(0.55) !important;
+                                filter: grayscale(0%) brightness(0.8) !important;
                                 transform: scale(1.06) !important;
                             }
                         `}</style>
@@ -201,6 +214,43 @@ export default function InterestSection() {
                     Scroll to explore
                 </span>
             </div>
+
+            {/* Image Modal */}
+            {selectedImage && (
+                <div
+                    ref={modalRef}
+                    className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
+                    onClick={handleModalClose}>
+                    <div
+                        className="relative max-w-4xl w-full max-h-[90vh] flex items-center justify-center"
+                        onClick={(e) => e.stopPropagation()}>
+                        <AppImage
+                            src={selectedImage.src}
+                            alt={selectedImage.alt}
+                            className="w-full h-full object-contain rounded-lg"
+                            style={{
+                                maxHeight: '90vh',
+                                filter: 'brightness(1)'
+                            }} />
+                        <button
+                            onClick={() => setSelectedImage(null)}
+                            className="absolute top-4 right-4 bg-parchment/10 hover:bg-parchment/20 rounded-full p-3 transition-all"
+                            aria-label="Close modal">
+                            <svg
+                                className="w-6 h-6 text-parchment"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            )}
         </section>);
 
 }

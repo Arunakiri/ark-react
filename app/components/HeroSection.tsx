@@ -23,7 +23,7 @@ export default function HeroSection() {
                 muted
                 loop
                 playsInline
-                poster={`${BASE_PATH}/assets/images/Superman-9.png`}
+                poster={`${BASE_PATH}/assets/images/my-image-black.png`}
             >
                 {/* Pexels / Unsplash fallback — replace with actual executive footage */}
                 {/* <source

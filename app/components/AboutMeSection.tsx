@@ -71,7 +71,7 @@ export default function AboutMeSection() {
                         }}>
 
                         <AppImage
-                            src="/assets/images/My_Photo.jpg"
+                            src="/assets/images/my-headshot-2.png"
                             alt="Alexander Merritt in a boardroom, formal dark suit, confident posture"
                             className="absolute inset-0 w-full h-full object-cover"
                             style={{ filter: 'grayscale(30%) brightness(0.6) contrast(1.05)' }} />

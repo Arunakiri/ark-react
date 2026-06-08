@@ -49,9 +49,26 @@ export default function HeroSection() {
                 {/* Pre-title */}
                 <div className="fade-in-up delay-500 flex items-center gap-4 mb-10">
                     <div className="w-10 h-px bg-parchment/30" />
-                    <span className="section-label" style={{ color: 'rgba(245,240,232,0.45)' }}>
-                        Data Scientist · Open to Work
-                    </span>
+                    <div className="flex items-center gap-3">
+                        <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium"
+                            style={{
+                                background: 'rgba(27, 58, 92, 0.6)',
+                                border: '1px solid rgba(101, 154, 193, 0.5)',
+                                color: 'rgba(184, 214, 238, 1)',
+                            }}
+                        >
+                            Data Scientist
+                        </span>
+                        <span className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium"
+                            style={{
+                                background: 'rgba(45, 75, 50, 0.6)',
+                                border: '1px solid rgba(124, 179, 120, 0.5)',
+                                color: 'rgba(188, 239, 173, 1)',
+                            }}
+                        >
+                            Open to Work
+                        </span>
+                    </div>
                     <div className="w-10 h-px bg-parchment/30" />
                 </div>
 
@@ -78,8 +95,8 @@ export default function HeroSection() {
                     className="fade-in-up delay-500 font-sans font-light text-parchment/55 max-w-3xl"
                     style={{ fontSize: 'clamp(0.875rem, 1.5vw, 1.05rem)', letterSpacing: '0.04em', lineHeight: 1.7 }}
                 >
-                    Proficient in Python with strong analytical thinking and cross functional collaboration.
-                    <br /> Eight years building Data Pipelines, Cloud Native Applications and Advanced Analytics. 
+                    Eight years building end-to-end data systems — from high-frequency ETL pipelines and
+                    <br /> RAG-powered LLM agents to real-time dashboards serving 200+ engineers. 
                 </p>
 
                 {/* CTAs */}

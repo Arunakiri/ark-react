@@ -111,7 +111,7 @@ export default function InterestSection() {
                             className="font-display font-light text-parchment mt-4"
                             style={{ fontSize: 'clamp(1.8rem, 3.5vw, 3rem)', lineHeight: 1.1 }}>
 
-                            Our Passion is our Strength
+                            Exploring the World
                         </h2>
                     </div>
                     <p

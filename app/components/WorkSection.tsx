@@ -39,12 +39,11 @@ const cases: CaseStudy[] = [
   ],
   outcome: [
     {label: 'Data Science Lab (DSL)', value: [
-        'Built strong stakeholders relationships by bringing in new ideas and delivering on time.',
-        'Product Owner for the Hydrogen Rigs solution in the DSL, handling both direction and execution.',
-        'Set up Airflow pipelines to make data flow into DSL systems smoother and more reliable.',
-        'Designed and improved Apps with a focus on making them faster, simpler, and more efficient.',
-        'Created a Streamlit-based LLM chatbot to quickly analyze and explore Hydrogen Rigs.',
-        'Led the site-wide Volvo Data Science Conference 2026, coordinating sessions and bringing together teams to share ideas and work.'
+        'Designed scalable data solutions in a secure on-premises DSL, supporting 200+ concurrent users.',
+        'Developed high-frequency ETL pipelines and web apps for Hydrogen Engine Rigs, reducing pipeline latency.',
+        'Built LLM agent systems with RAG pipelines for enterprise document Q&A and in-chat data visualization.',
+        'Delivered real-time monitoring dashboards in Grafana and Databricks for engineering test rigs.',
+        'Led the site-wide Volvo Data Science Conference 2026, driving cross-team knowledge sharing.',
     ]},
   ],
 },
@@ -63,10 +62,10 @@ const cases: CaseStudy[] = [
   ],
   outcome: [
     {label: 'Digital Operations', value: [
-        'Member of a global initiative to transition from MATLAB to Python to help reduce licensing costs.',
-        'As part of this, I conducted Python trainings and helped teams adopt the new stack.', 
-        'Led the migration of three projects to fully Python-based solutions (Dolly Tire Testing, Geo Location Tracking, and Battery SoC Analysis).',
-
+        'Core member of the MATLAB-to-Python migration, cutting third-party licensing costs by 30%.',
+        'Re-engineered Dolly Tire wear modelling, Geo-Location tracking, and Battery SoC estimation as Python solutions.',
+        'Designed reusable Python libraries to standardize workflows and accelerate delivery across projects.',
+        'Conducted structured Python training sessions to drive analytics adoption across Volvo teams.',
     ]},
   ],
 },
@@ -85,13 +84,15 @@ const cases: CaseStudy[] = [
   ],
   outcome: [
     {label: 'OCR Data Extraction', value: [
-        'Completed Infosys-certified training in Data Security (focused on handling sensitive data) and Python development.',
-        'Built a Python-based solution to extract data from product information leaflets (both images and text) for Novartis.',
-        'Designed PostgreSQL tables to store the extracted data and created a Power BI dashboard (PIL Board) to make it easy to explore and use.'
+        'Built OCR-based extraction pipelines for Novartis, achieving ~80% accuracy on complex multi-format documents.',
+        'Automated structured data extraction from unstructured PDFs and scanned images, reducing manual entry.',
+        'Designed a PostgreSQL architecture to centralize extracted product data for efficient querying.',
+        'Developed Power BI dashboards (PIL Boards) for self-service access to product and quality metrics.',
     ]},
   ],
 },
 ];
+
 
 export default function WorkSection() {
     const sectionRef = useRef<HTMLDivElement>(null);

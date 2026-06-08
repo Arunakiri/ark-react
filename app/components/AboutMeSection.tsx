@@ -4,9 +4,9 @@ import AppImage from '@/components/ui/AppImage';
 
 const stats = [
     { value: '8 yrs.', label: 'Experience' },
-    { value: '6', label: 'Projects' },
-    { value: '4', label: 'Apps Built' },
-    { value: '- DSL Connect, - Drive Matrix, - H2 Dash, - DSL Assistant', label: 'Apps'}
+    { value: '3', label: 'Industries' },
+    { value: '200+', label: 'Users Supported' },
+    { value: '30%', label: 'Licensing Cost Cut' },
 ];
 
 export default function AboutMeSection() {
@@ -55,8 +55,7 @@ export default function AboutMeSection() {
                     <p
                         className="reveal reveal-delay-2 font-sans font-light text-parchment/45 max-w-sm"
                         style={{ fontSize: '0.9rem', lineHeight: 1.75, letterSpacing: '0.01em' }}>
-
-                        Proactive and Decisive, I take ownership and accountability for the responsibilities entrusted to me.
+                        I turn complex data problems into scalable, production-ready solutions — from ETL pipelines to LLM agents, built for real-world scale.
                     </p>
                 </div>
 
@@ -193,8 +192,8 @@ export default function AboutMeSection() {
                         <p className="section-label mb-5">Education</p>
                         <div className="space-y-4">
                             {[
-                                { deg: 'M.Tech in Data Science', school: 'BITS Pilani, Hyderabad', year: '2020 - 2022', logo: '/assets/logos/bits_pilani-cropped.svg', hw: 48, weight: 48 },
-                                { deg: 'BE in Electronics & Communication', school: 'Anna University, Chennai', year: '2012 - 2016', logo: '/assets/logos/anna_university-cropped.svg', hw: 48, weight: 48}]?.
+                                { deg: 'M.Tech in Data Science', school: 'BITS Pilani, Hyderabad', year: 'March 2020 - August 2022', logo: '/assets/logos/bits_pilani-cropped.svg', hw: 48, weight: 48 },
+                                { deg: 'BE in Electronics & Communication', school: 'Anna University, Chennai', year: 'August 2012 - November 2016', logo: '/assets/logos/anna_university-cropped.svg', hw: 48, weight: 48}]?.
                                 map((edu) =>
                                     <div key={edu?.school} className="flex items-center gap-4">
                                         
@@ -229,7 +228,7 @@ export default function AboutMeSection() {
                     </div>
                 </div>
 
-                {/* Logo grid */}
+                {/* Skills grid */}
                 <div
                     className="reveal"
                     style={{ borderTop: '1px solid rgba(245,240,232,0.06)', paddingTop: '2.5rem' }}>
@@ -238,21 +237,21 @@ export default function AboutMeSection() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             {
-                                title: 'Language & Frameworks',
-                                items: ['Python', 'Django Web Framework', 'Shell', 'REST API', 'SQL Alchemy', 'React']
+                                title: 'Languages & Frameworks',
+                                items: ['Python', 'Django', 'Shell Scripting', 'REST APIs', 'SQLAlchemy', 'SQL']
                             },
                             {
-                                title: 'DevOps & Cloud',
-                                items: ['Docker', 'Kubernetes', 'Git/GitHub', 'CI/CD DevOps', 'OAuth 2.0']
+                                title: 'AI & Data Science',
+                                items: ['Machine Learning', 'Deep Learning', 'NLP', 'LLM Agents', 'RAG Pipelines', 'MCP Integration', 'OCR']
                             },
                             {
-                                title: 'Visualization & Analytics',
-                                items: ['Power BI', 'Grafana', 'Plotly Dash', 'Streamlit']
+                                title: 'Data Engineering',
+                                items: ['ETL Pipeline Design', 'PostgreSQL', 'Apache Iceberg', 'AWS S3', 'Databricks', 'Grafana', 'PowerBI']
                             },
                             {
-                                title: 'Data Science',
-                                items: ['Machine Learning', 'Artificial Intelligence', 'Image/Text Scanning']
-                            }
+                                title: 'DevOps & Visualization',
+                                items: ['Docker', 'Kubernetes', 'CI/CD', 'Git', 'Keycloak', 'Power BI', 'Grafana', 'Streamlit', 'Plotly Dash']
+                            },
                         ].map((category) => (
                             <div key={category.title} className="bento-card p-6" style={{ border: '1px solid rgba(245,240,232,0.07)' }}>
                                 <p className="section-label mb-4">{category.title}</p>

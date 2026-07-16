@@ -18,7 +18,7 @@ export default function HeroSection() {
             <video
                 ref={videoRef}
                 className="absolute inset-0 w-full h-full object-cover grayscale"
-                style={{ filter: 'grayscale(100%) brightness(0.45) contrast(1.1)' }}
+                style={{ filter: 'grayscale(20%) brightness(0.85) contrast(1.0)' }}
                 autoPlay
                 muted
                 loop

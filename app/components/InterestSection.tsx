@@ -63,9 +63,9 @@ const speakingCards = [
 
 export default function InterestSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
-    const galleryRef = useRef<HTMLDivElement>(null);
     const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
     const modalRef = useRef<HTMLDivElement>(null);
+    const cardAngle = 360 / speakingCards.length;
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -122,97 +122,112 @@ export default function InterestSection() {
                     </p>
                 </div>
             </div>
-            {/* Horizontal snap gallery */}
-            <div
-                ref={galleryRef}
-                className="snap-gallery flex overflow-x-auto gap-4 px-6 md:px-12"
-                style={{ paddingBottom: '1.5rem' }}>
-
-                {speakingCards?.map((card, i) =>
-                    <div
-                        key={i}
-                        className="snap-card group relative overflow-hidden cursor-pointer"
-                        style={{
-                            width: 'clamp(260px, 30vw, 380px)',
-                            height: 480,
-                            border: '1px solid rgba(245,240,232,0.07)',
-                            flexShrink: 0
-                        }}
-                        onClick={() => handleImageClick(card.img, card.alt)}>
-
-                        <AppImage
-                            src={card?.img}
-                            alt={card?.alt}
-                            className="absolute inset-0 w-full h-full object-cover transition-all duration-1000"
-                            style={{
-                                filter: 'grayscale(60%) brightness(0.75)',
-                                transform: 'scale(1.02)',
-                                transition: 'filter 0.8s ease, transform 0.8s ease'
-                            }} />
-
-                        {/* Hover: color reveal */}
-                        <div
-                            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                            style={{
-                                background: 'rgba(13,13,13,0)'
-                            }} />
-
-                        <style>{`
-                            .snap-card:hover img {
-                                filter: grayscale(0%) brightness(0.8) !important;
-                                transform: scale(1.06) !important;
-                            }
-                        `}</style>
-
-                        {/* Gradient */}
-                        <div
-                            className="absolute inset-0"
-                            style={{
-                                background: 'linear-gradient(to top, rgba(13,13,13,0.92) 0%, transparent 55%)'
-                            }} />
-
-
-                        {/* Content */}
-                        <div className="absolute bottom-0 left-0 right-0 p-7">
-                            <p
-                                className="font-display italic text-parchment/90 mb-1"
-                                style={{ fontSize: '1.1rem', lineHeight: 1.35 }}>
-
-                                {card?.event}
-                            </p>
-                            {/* Hover reveal arrow */}
-                            <div
-                                className="mt-5 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                                style={{ transform: 'translateY(8px)', transition: 'opacity 0.4s ease, transform 0.4s ease' }}>
-
-                                <style>{`
-                                    .snap-card:hover .speaking-arrow {
-                                        opacity: 1 !important;
-                                        transform: translateY(0) !important;
-                                    }
-                                `}</style>
-                            </div>
-                        </div>
-
-                        {/* Index */}
-                        <div
-                            className="absolute top-6 right-6"
-                            style={{ fontSize: '0.55rem', letterSpacing: '0.2em', color: 'rgba(245,240,232,0.2)' }}>
-
-                            {String(i + 1)?.padStart(2, '0')}
-                        </div>
-                    </div>
-                )}
-            </div>
-            {/* Gallery scroll hint */}
-            <div className="px-6 md:px-12 mt-6 flex items-center gap-3">
-                <div style={{ width: 24, height: 1, background: 'rgba(245,240,232,0.15)' }} />
-                <span
-                    className="font-sans text-parchment/25"
-                    style={{ fontSize: '0.6rem', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
-
-                    Scroll to explore
-                </span>
+            <style>{`
+                .interest-cylinder {
+                    position: relative;
+                    height: 540px;
+                    overflow: hidden;
+                    perspective: 3200px;
+                    perspective-origin: 50% 48%;
+                    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+                    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+                }
+                .interest-cylinder-ring {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 0;
+                    height: 0;
+                    transform-style: preserve-3d;
+                    animation: interest-cylinder-rotation 66s linear infinite;
+                    will-change: transform;
+                }
+                .interest-cylinder:hover .interest-cylinder-ring,
+                .interest-cylinder:focus-within .interest-cylinder-ring {
+                    animation-play-state: paused;
+                }
+                .interest-cylinder-card {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: clamp(260px, 30vw, 380px);
+                    height: 480px;
+                    overflow: hidden;
+                    padding: 0;
+                    border: 1px solid rgba(245, 240, 232, 0.16);
+                    background: #17191a;
+                    color: var(--color-parchment);
+                    text-align: left;
+                    appearance: none;
+                    backface-visibility: hidden;
+                    cursor: pointer;
+                    transition: border-color 400ms ease;
+                }
+                .interest-cylinder-card:hover { border-color: rgba(245, 240, 232, 0.55); }
+                .interest-cylinder-card img { transition: filter 700ms ease, transform 900ms ease; }
+                .interest-cylinder-card:hover img {
+                    filter: grayscale(0%) brightness(0.88) !important;
+                    transform: scale(1.05);
+                }
+                .interest-cylinder-shade {
+                    position: absolute;
+                    z-index: 1;
+                    inset: 0;
+                    background: linear-gradient(to top, rgba(13, 13, 13, 0.92), transparent 55%);
+                    pointer-events: none;
+                }
+                .interest-cylinder-title {
+                    position: absolute;
+                    z-index: 2;
+                    right: 28px;
+                    bottom: 28px;
+                    left: 28px;
+                    color: rgba(245, 240, 232, 0.94);
+                    font-size: 1.1rem;
+                    line-height: 1.35;
+                }
+                .interest-cylinder-index {
+                    position: absolute;
+                    z-index: 2;
+                    top: 24px;
+                    right: 24px;
+                    color: rgba(245, 240, 232, 0.65);
+                    font-size: 0.65rem;
+                }
+                @keyframes interest-cylinder-rotation {
+                    from { transform: rotateY(0deg); }
+                    to { transform: rotateY(-360deg); }
+                }
+                @media (max-width: 640px) {
+                    .interest-cylinder { height: 520px; perspective: 3200px; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .interest-cylinder-ring { animation: none; }
+                    .interest-cylinder-card,
+                    .interest-cylinder-card img { transition: none; }
+                }
+            `}</style>
+            <div className="interest-cylinder" aria-label="Rotating photo gallery">
+                <div className="interest-cylinder-ring">
+                    {speakingCards.map((card, i) =>
+                        <button
+                            key={card.event}
+                            type="button"
+                            className="interest-cylinder-card group"
+                            style={{ transform: `translate(-50%, -50%) rotateY(${i * cardAngle}deg) translateZ(clamp(500px, 44vw, 620px)) scale(0.83)` }}
+                            onClick={() => handleImageClick(card.img, card.alt)}
+                            aria-label={`View ${card.event}`}>
+                            <AppImage
+                                src={card.img}
+                                alt={card.alt}
+                                className="absolute inset-0 h-full w-full object-cover"
+                                style={{ filter: 'grayscale(45%) brightness(0.78)' }} />
+                            <span className="interest-cylinder-shade" />
+                            <span className="interest-cylinder-title font-display italic">{card.event}</span>
+                            <span className="interest-cylinder-index">{String(i + 1).padStart(2, '0')}</span>
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Image Modal */}

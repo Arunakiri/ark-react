@@ -41,8 +41,15 @@ interface CarouselPhysics {
 }
 
 const TILE_COUNT = 8;
+const TILE_OVERLAP = 2.5;
 const DRAG_THRESHOLD = 5;
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+const getImagePath = (src: string) => {
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+    return src.startsWith('/') && basePath && !src.startsWith(`${basePath}/`)
+        ? `${basePath}${src}`
+        : src;
+};
 
 export default function CircularCarousel({
     items,
@@ -96,13 +103,17 @@ export default function CircularCarousel({
     }, [step, radius, speed, direction, momentum, autoplay, snap, pauseOnHover, depthFade]);
 
     const tiles = useMemo(() => Array.from({ length: TILE_COUNT }, (_, index) => {
-        const width = cardWidth / TILE_COUNT;
-        const center = (index + 0.5) * width - cardWidth / 2;
-        const alpha = bend ? center / (radius * bend) : 0;
-        const shift = bend ? radius * bend * Math.sin(alpha) : 0;
-        const depth = bend ? -radius * bend * (1 - Math.cos(alpha)) : 0;
+        const segment = cardWidth / TILE_COUNT;
+        const start = index * segment - (index > 0 ? TILE_OVERLAP / 2 : 0);
+        const end = (index + 1) * segment + (index < TILE_COUNT - 1 ? TILE_OVERLAP / 2 : 0);
+        const width = end - start;
+        const center = (start + end) / 2 - cardWidth / 2;
+        const bendRadius = bend ? radius * bend : 0;
+        const alpha = bendRadius ? center / bendRadius : 0;
+        const shift = bendRadius ? bendRadius * Math.sin(alpha) : center;
+        const depth = bendRadius ? -bendRadius * (1 - Math.cos(alpha)) : 0;
         const turn = alpha * 180 / Math.PI;
-        return { index, width, shift, depth, turn };
+        return { index, start, end, width, shift, depth, turn };
     }), [cardWidth, bend, radius]);
 
     useEffect(() => {
@@ -129,7 +140,7 @@ export default function CircularCarousel({
                 const world = ((index * settings.step + physics.angle + 180) % 360 + 360) % 360 - 180;
                 const facing = Math.cos(world * Math.PI / 180);
                 const fade = settings.depthFade * Math.pow((1 - facing) / 2, 1.25);
-                cardRefs.current[index]?.style.setProperty('--card-depth', fade.toFixed(3));
+                cardRefs.current[index]?.style.setProperty('--card-brightness', (1 - fade * 0.65).toFixed(3));
             }
             if (next !== activeRef.current) {
                 activeRef.current = next;
@@ -318,6 +329,7 @@ export default function CircularCarousel({
                 <div className={styles.camera} style={{ transform: `rotateX(${tilt}deg)` }}>
                     <div ref={ringRef} className={styles.ring}>
                         {items.map((item, index) => {
+                            const imagePath = getImagePath(item.src);
                             return (
                                 <button
                                     key={item.title}
@@ -337,25 +349,42 @@ export default function CircularCarousel({
                                 >
                                     {tiles.map((tile) => (
                                         <span
+                                            key={`back-${tile.index}`}
+                                            className={`${styles.tile} ${styles.backTile}`}
+                                            aria-hidden="true"
+                                            style={{
+                                                left: (cardWidth - tile.width) / 2,
+                                                top: 0,
+                                                width: tile.width,
+                                                height: cardHeight,
+                                                transform: `translate3d(${tile.shift}px, 0, ${tile.depth}px) rotateY(${tile.turn}deg) rotateY(180deg)`,
+                                                backgroundImage: `url("${imagePath}")`,
+                                                backgroundSize: `${cardWidth}px ${cardHeight}px`,
+                                                backgroundPosition: `${-(cardWidth - tile.end)}px 0`
+                                            }}
+                                        />
+                                    ))}
+                                    {tiles.map((tile) => (
+                                        <span
                                             key={tile.index}
                                             className={styles.tile}
                                             aria-hidden="true"
                                             style={{
-                                                left: tile.index * tile.width,
+                                                left: (cardWidth - tile.width) / 2,
                                                 top: 0,
-                                                width: tile.width + 1,
+                                                width: tile.width,
                                                 height: cardHeight,
                                                 transform: `translate3d(${tile.shift}px, 0, ${tile.depth}px) rotateY(${tile.turn}deg)`,
-                                                backgroundImage: `url("${item.src}")`,
+                                                backgroundImage: `url("${imagePath}")`,
                                                 backgroundSize: `${cardWidth}px ${cardHeight}px`,
-                                                backgroundPosition: `${-tile.index * tile.width}px 0`
+                                                backgroundPosition: `${-tile.start}px 0`
                                             }}
                                         />
                                     ))}
-                                    <span className={styles.shade} style={{ borderRadius: cornerRadius }} />
-                                    <span className={styles.depthShade} style={{ borderRadius: cornerRadius }} />
-                                    <span className={styles.title}>{item.title}</span>
-                                    <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
+                                    <span className={styles.overlay} aria-hidden="true">
+                                        <span className={styles.title}>{item.title}</span>
+                                        <span className={styles.index}>{String(index + 1).padStart(2, '0')}</span>
+                                    </span>
                                 </button>
                             );
                         })}

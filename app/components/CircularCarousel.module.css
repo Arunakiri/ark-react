@@ -60,20 +60,17 @@
     display: block;
     overflow: visible;
     padding: 0;
-    border: 1px solid rgba(245, 240, 232, 0.16);
-    background: #17191a;
+    border: 0;
+    background: transparent;
     color: #f5f0e8;
     text-align: left;
     appearance: none;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     cursor: pointer;
-    transition: border-color 400ms ease;
 }
 
-.card:hover,
 .card:focus-visible {
-    border-color: rgba(245, 240, 232, 0.65);
+    outline: 1px solid rgba(245, 240, 232, 0.65);
+    outline-offset: 3px;
 }
 
 .tile {
@@ -82,25 +79,26 @@
     overflow: hidden;
     outline: 1px solid transparent;
     background-repeat: no-repeat;
+    filter: brightness(var(--card-brightness, 1));
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     pointer-events: none;
 }
 
-.shade,
-.depthShade {
+.overlay {
     position: absolute;
     inset: 0;
+    transform: translateZ(4px);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     pointer-events: none;
 }
 
-.shade {
-    background: linear-gradient(to top, rgba(13, 13, 13, 0.92), transparent 55%);
-}
-
-.depthShade {
-    background: #000;
-    opacity: var(--card-depth, 0);
+.title,
+.index {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .title {
@@ -113,7 +111,7 @@
     font-size: 1.1rem;
     font-style: italic;
     line-height: 1.35;
-    pointer-events: none;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
 }
 
 .index {
@@ -122,7 +120,7 @@
     right: 24px;
     color: rgba(245, 240, 232, 0.65);
     font-size: 0.65rem;
-    pointer-events: none;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
 }
 
 .live {

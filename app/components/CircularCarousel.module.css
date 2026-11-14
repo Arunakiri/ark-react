@@ -1,0 +1,151 @@
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 560px;
+    overflow: hidden;
+    outline: none;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    cursor: grab;
+}
+
+.carousel:focus-visible {
+    box-shadow: inset 0 0 0 2px rgba(128, 128, 140, 0.55);
+}
+
+.dragging {
+    cursor: grabbing;
+}
+
+.stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 450ms ease;
+}
+
+.carousel[data-ready] .stage {
+    opacity: 1;
+}
+
+.camera,
+.ring,
+.card {
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+}
+
+.camera {
+    position: relative;
+}
+
+.ring,
+.card {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.ring {
+    will-change: transform;
+}
+
+.card {
+    display: block;
+    overflow: visible;
+    padding: 0;
+    border: 1px solid rgba(245, 240, 232, 0.16);
+    background: #17191a;
+    color: #f5f0e8;
+    text-align: left;
+    appearance: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    cursor: pointer;
+    transition: border-color 400ms ease;
+}
+
+.card:hover,
+.card:focus-visible {
+    border-color: rgba(245, 240, 232, 0.65);
+}
+
+.tile {
+    position: absolute;
+    display: block;
+    overflow: hidden;
+    outline: 1px solid transparent;
+    background-repeat: no-repeat;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    pointer-events: none;
+}
+
+.shade,
+.depthShade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.shade {
+    background: linear-gradient(to top, rgba(13, 13, 13, 0.92), transparent 55%);
+}
+
+.depthShade {
+    background: #000;
+    opacity: var(--card-depth, 0);
+}
+
+.title {
+    position: absolute;
+    right: 28px;
+    bottom: 28px;
+    left: 28px;
+    color: rgba(245, 240, 232, 0.94);
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.35;
+    pointer-events: none;
+}
+
+.index {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    color: rgba(245, 240, 232, 0.65);
+    font-size: 0.65rem;
+    pointer-events: none;
+}
+
+.live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+    .carousel {
+        height: 520px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stage {
+        transition: none;
+    }
+
+    .card {
+        transition: none;
+    }
+}

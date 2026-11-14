@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import AppImage from '@/components/ui/AppImage';
+import CircularCarousel from './CircularCarousel';
 
 const speakingCards = [
     {
@@ -65,7 +66,6 @@ export default function InterestSection() {
     const sectionRef = useRef<HTMLDivElement>(null);
     const [selectedImage, setSelectedImage] = useState<{ src: string; alt: string } | null>(null);
     const modalRef = useRef<HTMLDivElement>(null);
-    const cardAngle = 360 / speakingCards.length;
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -122,113 +122,28 @@ export default function InterestSection() {
                     </p>
                 </div>
             </div>
-            <style>{`
-                .interest-cylinder {
-                    position: relative;
-                    height: 540px;
-                    overflow: hidden;
-                    perspective: 3200px;
-                    perspective-origin: 50% 48%;
-                    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-                    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-                }
-                .interest-cylinder-ring {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: 0;
-                    height: 0;
-                    transform-style: preserve-3d;
-                    animation: interest-cylinder-rotation 66s linear infinite;
-                    will-change: transform;
-                }
-                .interest-cylinder:hover .interest-cylinder-ring,
-                .interest-cylinder:focus-within .interest-cylinder-ring {
-                    animation-play-state: paused;
-                }
-                .interest-cylinder-card {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    width: clamp(260px, 30vw, 380px);
-                    height: 480px;
-                    overflow: hidden;
-                    padding: 0;
-                    border: 1px solid rgba(245, 240, 232, 0.16);
-                    background: #17191a;
-                    color: var(--color-parchment);
-                    text-align: left;
-                    appearance: none;
-                    backface-visibility: hidden;
-                    cursor: pointer;
-                    transition: border-color 400ms ease;
-                }
-                .interest-cylinder-card:hover { border-color: rgba(245, 240, 232, 0.55); }
-                .interest-cylinder-card img { transition: filter 700ms ease, transform 900ms ease; }
-                .interest-cylinder-card:hover img {
-                    filter: grayscale(0%) brightness(0.88) !important;
-                    transform: scale(1.05);
-                }
-                .interest-cylinder-shade {
-                    position: absolute;
-                    z-index: 1;
-                    inset: 0;
-                    background: linear-gradient(to top, rgba(13, 13, 13, 0.92), transparent 55%);
-                    pointer-events: none;
-                }
-                .interest-cylinder-title {
-                    position: absolute;
-                    z-index: 2;
-                    right: 28px;
-                    bottom: 28px;
-                    left: 28px;
-                    color: rgba(245, 240, 232, 0.94);
-                    font-size: 1.1rem;
-                    line-height: 1.35;
-                }
-                .interest-cylinder-index {
-                    position: absolute;
-                    z-index: 2;
-                    top: 24px;
-                    right: 24px;
-                    color: rgba(245, 240, 232, 0.65);
-                    font-size: 0.65rem;
-                }
-                @keyframes interest-cylinder-rotation {
-                    from { transform: rotateY(0deg); }
-                    to { transform: rotateY(-360deg); }
-                }
-                @media (max-width: 640px) {
-                    .interest-cylinder { height: 520px; perspective: 3200px; }
-                }
-                @media (prefers-reduced-motion: reduce) {
-                    .interest-cylinder-ring { animation: none; }
-                    .interest-cylinder-card,
-                    .interest-cylinder-card img { transition: none; }
-                }
-            `}</style>
-            <div className="interest-cylinder" aria-label="Rotating photo gallery">
-                <div className="interest-cylinder-ring">
-                    {speakingCards.map((card, i) =>
-                        <button
-                            key={card.event}
-                            type="button"
-                            className="interest-cylinder-card group"
-                            style={{ transform: `translate(-50%, -50%) rotateY(${i * cardAngle}deg) translateZ(clamp(500px, 44vw, 620px)) scale(0.83)` }}
-                            onClick={() => handleImageClick(card.img, card.alt)}
-                            aria-label={`View ${card.event}`}>
-                            <AppImage
-                                src={card.img}
-                                alt={card.alt}
-                                className="absolute inset-0 h-full w-full object-cover"
-                                style={{ filter: 'grayscale(45%) brightness(0.78)' }} />
-                            <span className="interest-cylinder-shade" />
-                            <span className="interest-cylinder-title font-display italic">{card.event}</span>
-                            <span className="interest-cylinder-index">{String(i + 1).padStart(2, '0')}</span>
-                        </button>
-                    )}
-                </div>
-            </div>
+            <CircularCarousel
+                items={speakingCards.map((card) => ({
+                    src: card.img,
+                    alt: card.alt,
+                    title: card.event
+                }))}
+                cardWidth={280}
+                aspectRatio={0.75}
+                speed={14}
+                gap={25}
+                tilt={0}
+                curve={1}
+                perspective={2500}
+                autoplay="drift"
+                direction="right"
+                momentum={0.6}
+                snap
+                pauseOnHover
+                focusOnClick
+                depthFade={0.55}
+                cornerRadius={12}
+                onItemClick={(item) => handleImageClick(item.src, item.alt)} />
 
             {/* Image Modal */}
             {selectedImage && (
